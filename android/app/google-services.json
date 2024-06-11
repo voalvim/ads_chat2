@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "93995853083",
+    "project_id": "ads-chat2-ff42d",
+    "storage_bucket": "ads-chat2-ff42d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93995853083:android:9a0d6075e38d30a5361fbe",
+        "android_client_info": {
+          "package_name": "com.example.ads_chat2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93995853083-f5cks6uiqk72nftg396t7f2eqh680m9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfkZq3yI0rNF7kNE96M_qwGSimWsGd8XI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93995853083-f5cks6uiqk72nftg396t7f2eqh680m9q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "93995853083-3gi8qeihop0rj8ohtvsrv4tlffhtni5a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adsChat2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
