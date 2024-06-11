@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ads_chat2/widgets/chat_message.dart';
 import 'package:ads_chat2/widgets/escreve_texto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +23,9 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((user) {
-      _currentUser = user;
+      setState(() {
+        _currentUser = user;
+      });
     });
   }
 
@@ -61,6 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
       "uid": user!.uid,
       "senderName": user.displayName,
       "senderPhotoUrl": user.photoURL,
+      "time": Timestamp.now(),
     };
 
     if (imgFile != null) {
@@ -85,8 +89,21 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ads Chat'),
+        title: Text(_currentUser != null
+            ? 'Olá, ${_currentUser!.displayName}'
+            : 'Ads Chat'),
         backgroundColor: Colors.blue,
+        actions: [
+          _currentUser != null
+              ? IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    googleSignIn.signOut();
+                  },
+                )
+              : Container(),
+        ],
       ),
       body: Column(
         children: [
@@ -94,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('Mensagens')
+                    .orderBy('time')
                     .snapshots(),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
@@ -109,9 +127,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         itemCount: mensagens.length,
                         reverse: true,
                         itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(mensagens[index]['texto']),
-                          );
+                          return ChatMessage(
+                              minha: true, data: mensagens[index].data);
                         },
                       );
                   }

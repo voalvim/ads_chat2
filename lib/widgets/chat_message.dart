@@ -13,14 +13,17 @@ class ChatMessage extends StatelessWidget {
       margin: const EdgeInsets.all(12),
       child: Row(
         children: [
-          Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(data()['senderPhotoUrl']),
-              )),
+          !minha
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(data()['senderPhotoUrl']),
+                  ))
+              : Container(),
           Expanded(
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                minha ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Text(
                 data()['senderName'],
@@ -39,7 +42,14 @@ class ChatMessage extends StatelessWidget {
                       textAlign: minha ? TextAlign.end : TextAlign.start,
                     ),
             ],
-          ))
+          )),
+          minha
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(data()['senderPhotoUrl']),
+                  ))
+              : Container()
         ],
       ),
     );
